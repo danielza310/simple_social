@@ -9,7 +9,7 @@ import {
 } from '../types';
 import axios from 'axios';
 import { createUserWithEmailAndPassword } from "firebase/auth"
-import { auth, db } from "../../firebase"
+import { auth, db, app } from "../../firebase"
 import { doc, setDoc } from "firebase/firestore";
 
 export const loginUser = (userData, history) =>async (dispatch) => {
@@ -49,7 +49,6 @@ export const signupUser = (newUserData, history) =>async (dispatch) => {
       email: user.email,
       createdAt: new Date(),
     });    
-    dispatch(signin(userCredential.user))
     history.push('/');
   } catch (error) {
     console.log(error)
@@ -77,13 +76,6 @@ export const logoutUser = () => (dispatch) => {
   localStorage.removeItem('FBIdToken');
   delete axios.defaults.headers.common['Authorization'];
   dispatch({ type: SET_UNAUTHENTICATED });
-};
-
-export const signin = (user) => (dispatch) => {
-    dispatch({
-      type: SET_USER,
-      payload: user
-    });
 };
 
 export const getUserData = () => (dispatch) => {

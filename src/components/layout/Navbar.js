@@ -11,14 +11,19 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 // Icons
 import HomeIcon from '@material-ui/icons/Home';
+import { auth } from "../../firebase"
 
 class Navbar extends Component {
+  constructor()
+  {
+    super();
+  }
   render() {
     const { authenticated } = this.props;
     return (
       <AppBar>
         <Toolbar className="nav-container">
-          {authenticated ? (
+          {auth.currentUser==null ? (
             <Fragment>
               <PostScream />
               <Link to="/">
